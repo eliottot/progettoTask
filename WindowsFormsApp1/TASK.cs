@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsApp1
 {
-
         public class Task
         {
             public string name { get; set; }

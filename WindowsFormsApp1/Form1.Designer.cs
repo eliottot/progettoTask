@@ -35,15 +35,15 @@
             this.btnAggiungi = new System.Windows.Forms.Button();
             this.btnEsegui = new System.Windows.Forms.Button();
             this.lblWrite = new System.Windows.Forms.Label();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.lblError = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // lblName
             // 
             this.lblName.AutoSize = true;
             this.lblName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblName.Location = new System.Drawing.Point(13, 22);
+            this.lblName.Location = new System.Drawing.Point(13, 31);
             this.lblName.Name = "lblName";
             this.lblName.Size = new System.Drawing.Size(51, 20);
             this.lblName.TabIndex = 0;
@@ -51,9 +51,10 @@
             // 
             // txtName
             // 
+            this.txtName.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtName.Location = new System.Drawing.Point(70, 24);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(100, 20);
+            this.txtName.Size = new System.Drawing.Size(122, 29);
             this.txtName.TabIndex = 1;
             this.txtName.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
@@ -61,7 +62,7 @@
             // 
             this.lblTime.AutoSize = true;
             this.lblTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTime.Location = new System.Drawing.Point(13, 58);
+            this.lblTime.Location = new System.Drawing.Point(12, 84);
             this.lblTime.Name = "lblTime";
             this.lblTime.Size = new System.Drawing.Size(43, 20);
             this.lblTime.TabIndex = 2;
@@ -69,29 +70,34 @@
             // 
             // txtTime
             // 
-            this.txtTime.Location = new System.Drawing.Point(70, 60);
+            this.txtTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTime.Location = new System.Drawing.Point(70, 77);
             this.txtTime.Name = "txtTime";
-            this.txtTime.Size = new System.Drawing.Size(100, 20);
+            this.txtTime.Size = new System.Drawing.Size(122, 29);
             this.txtTime.TabIndex = 3;
             // 
             // btnAggiungi
             // 
-            this.btnAggiungi.Location = new System.Drawing.Point(222, 41);
+            this.btnAggiungi.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnAggiungi.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAggiungi.Location = new System.Drawing.Point(245, 174);
             this.btnAggiungi.Name = "btnAggiungi";
-            this.btnAggiungi.Size = new System.Drawing.Size(75, 23);
+            this.btnAggiungi.Size = new System.Drawing.Size(89, 37);
             this.btnAggiungi.TabIndex = 4;
-            this.btnAggiungi.Text = "Aggungi";
-            this.btnAggiungi.UseVisualStyleBackColor = true;
+            this.btnAggiungi.Text = "Aggiungi";
+            this.btnAggiungi.UseVisualStyleBackColor = false;
             this.btnAggiungi.Click += new System.EventHandler(this.btnAggiungi_Click);
             // 
             // btnEsegui
             // 
-            this.btnEsegui.Location = new System.Drawing.Point(222, 119);
+            this.btnEsegui.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnEsegui.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEsegui.Location = new System.Drawing.Point(668, 174);
             this.btnEsegui.Name = "btnEsegui";
-            this.btnEsegui.Size = new System.Drawing.Size(75, 23);
+            this.btnEsegui.Size = new System.Drawing.Size(100, 37);
             this.btnEsegui.TabIndex = 5;
             this.btnEsegui.Text = "Esegui";
-            this.btnEsegui.UseVisualStyleBackColor = true;
+            this.btnEsegui.UseVisualStyleBackColor = false;
             this.btnEsegui.Click += new System.EventHandler(this.btnEsegui_Click);
             // 
             // lblWrite
@@ -102,32 +108,36 @@
             this.lblWrite.Size = new System.Drawing.Size(762, 209);
             this.lblWrite.TabIndex = 6;
             // 
-            // radioButton1
-            // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(23, 191);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(85, 17);
-            this.radioButton1.TabIndex = 7;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "radioButton1";
-            this.radioButton1.UseVisualStyleBackColor = true;
-            // 
             // lblError
             // 
             this.lblError.BackColor = System.Drawing.Color.Transparent;
-            this.lblError.Location = new System.Drawing.Point(351, 24);
+            this.lblError.Location = new System.Drawing.Point(665, 24);
             this.lblError.Name = "lblError";
             this.lblError.Size = new System.Drawing.Size(117, 73);
             this.lblError.TabIndex = 8;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "First In First Out",
+            "Short Job First",
+            "Round Robin",
+            "Round Robin Limitato"});
+            this.comboBox1.Location = new System.Drawing.Point(23, 183);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 28);
+            this.comboBox1.TabIndex = 9;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.lblError);
-            this.Controls.Add(this.radioButton1);
             this.Controls.Add(this.lblWrite);
             this.Controls.Add(this.btnEsegui);
             this.Controls.Add(this.btnAggiungi);
@@ -151,8 +161,8 @@
         private System.Windows.Forms.Button btnAggiungi;
         private System.Windows.Forms.Button btnEsegui;
         private System.Windows.Forms.Label lblWrite;
-        private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.Label lblError;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }
 

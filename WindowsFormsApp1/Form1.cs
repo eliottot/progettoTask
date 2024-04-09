@@ -43,7 +43,7 @@ namespace WindowsFormsApp1
         {
             for (int i = 0; i < count; i++)
             {
-                lblWrite.Text = $"{processi[i].name} {processi[i].time}";
+                lblWrite.Text = $"{processi[i].name} {processi[i].time}\n";
             }
         }
     }
