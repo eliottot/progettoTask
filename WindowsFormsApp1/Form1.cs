@@ -37,6 +37,7 @@ namespace WindowsFormsApp1
             var processo = new Task();
             processo.name = txtName.Text;
             processo.time = Convert.ToInt32(txtTime.Text);
+            processo.priority = selectorPriority.Text;
 
             processi[counter] = processo;
 
@@ -76,7 +77,7 @@ namespace WindowsFormsApp1
                     }
                 default:
                     {
-                        lblError.Text = "La politica selezionata non esiste o è stata scritta nel modo errato!";
+                        lblError.Text = "ERROR\nLa politica selezionata non esiste o è stata scritta nel modo errato.";
                         lblError.Visible = true;
                         break;
                     }
@@ -109,30 +110,45 @@ namespace WindowsFormsApp1
             OrdinamentoCrescente(processi, counter);
             FirstComeFirstServed(processi, counter);
         }
+        private void RoundRobin(Task[] processi, int counter)
+        {
+            listBox.Items.Clear();
+            ProcessiAggiuntiTesto(processi, counter);
+        }
 
         private void OrdinamentoCrescente(Task[] array, int counter)
         {
-            bool swapped;
+            int temp = 0;
 
-            do
+            for (int i = 0; i < counter - 1; i++)
             {
-                swapped = false;
-
-                for (int i = 0; i < counter - 1; i++)
+                for (int j = i + 1; j < counter; j++)
                 {
-                    if (processi[i].time > processi[i + 1].time)
+                    if (array[j].time < array[i].time)
                     {
-                        int temp = processi[i].time;
-                        processi[i].time = processi[i + 1].time;
-                        processi[i + 1].time = temp;
-
-                        swapped = true;
+                        temp = array[j].time;
+                        array[j].time = array[i].time;
+                        array[i].time = temp;
                     }
                 }
+            }
+        }
+        private void OrdinamentoPriorita(Task[] array, int counter)
+        {
+            int temp = 0;
 
-                counter--;
-
-            } while (swapped);
+            for (int i = 0; i < counter - 1; i++)
+            {
+                for (int j = i + 1; j < counter; j++)
+                {
+                    if (array[j].priority == "Alta")
+                    {
+                        temp = array[j].time;
+                        array[j].time = array[i].time;
+                        array[i].time = temp;
+                    }
+                }
+            }
         }
 
     }

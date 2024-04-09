@@ -10,5 +10,6 @@ namespace WindowsFormsApp1
         {
             public string name { get; set; }
             public int time { get; set; }
+            public string priority { get; set; }
         }
 }

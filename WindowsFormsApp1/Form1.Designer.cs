@@ -38,8 +38,10 @@
             this.selector = new System.Windows.Forms.ComboBox();
             this.listBox = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtPriority = new System.Windows.Forms.TextBox();
             this.lblPriority = new System.Windows.Forms.Label();
+            this.lblBorder = new System.Windows.Forms.Label();
+            this.lblInfoPriority = new System.Windows.Forms.Label();
+            this.selectorPriority = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // lblName
@@ -73,6 +75,7 @@
             // 
             // txtTime
             // 
+            this.txtTime.BackColor = System.Drawing.SystemColors.Window;
             this.txtTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTime.Location = new System.Drawing.Point(70, 72);
             this.txtTime.Name = "txtTime";
@@ -83,9 +86,9 @@
             // 
             this.btnAggiungi.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.btnAggiungi.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAggiungi.Location = new System.Drawing.Point(238, 183);
+            this.btnAggiungi.Location = new System.Drawing.Point(229, 24);
             this.btnAggiungi.Name = "btnAggiungi";
-            this.btnAggiungi.Size = new System.Drawing.Size(89, 37);
+            this.btnAggiungi.Size = new System.Drawing.Size(92, 32);
             this.btnAggiungi.TabIndex = 4;
             this.btnAggiungi.Text = "Aggiungi";
             this.btnAggiungi.UseVisualStyleBackColor = false;
@@ -95,9 +98,9 @@
             // 
             this.btnEsegui.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.btnEsegui.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEsegui.Location = new System.Drawing.Point(668, 174);
+            this.btnEsegui.Location = new System.Drawing.Point(652, 249);
             this.btnEsegui.Name = "btnEsegui";
-            this.btnEsegui.Size = new System.Drawing.Size(100, 37);
+            this.btnEsegui.Size = new System.Drawing.Size(110, 51);
             this.btnEsegui.TabIndex = 5;
             this.btnEsegui.Text = "Esegui";
             this.btnEsegui.UseVisualStyleBackColor = false;
@@ -108,9 +111,9 @@
             this.lblError.BackColor = System.Drawing.Color.IndianRed;
             this.lblError.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblError.ForeColor = System.Drawing.Color.Black;
-            this.lblError.Location = new System.Drawing.Point(616, 24);
+            this.lblError.Location = new System.Drawing.Point(506, 30);
             this.lblError.Name = "lblError";
-            this.lblError.Size = new System.Drawing.Size(166, 94);
+            this.lblError.Size = new System.Drawing.Size(256, 121);
             this.lblError.TabIndex = 8;
             this.lblError.Visible = false;
             // 
@@ -123,7 +126,7 @@
             "Shortest Job First",
             "Round Robin",
             "Round Robin Limitato"});
-            this.selector.Location = new System.Drawing.Point(23, 192);
+            this.selector.Location = new System.Drawing.Point(23, 272);
             this.selector.Name = "selector";
             this.selector.Size = new System.Drawing.Size(188, 28);
             this.selector.TabIndex = 9;
@@ -133,29 +136,20 @@
             this.listBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBox.FormattingEnabled = true;
             this.listBox.ItemHeight = 16;
-            this.listBox.Location = new System.Drawing.Point(23, 238);
+            this.listBox.Location = new System.Drawing.Point(23, 323);
             this.listBox.Name = "listBox";
-            this.listBox.Size = new System.Drawing.Size(745, 196);
+            this.listBox.Size = new System.Drawing.Size(739, 292);
             this.listBox.TabIndex = 10;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(20, 157);
+            this.label1.Location = new System.Drawing.Point(25, 229);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(127, 32);
             this.label1.TabIndex = 11;
             this.label1.Text = "Seleziona la politica\r\nche vuoi utilizzare";
-            // 
-            // txtPriority
-            // 
-            this.txtPriority.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPriority.Location = new System.Drawing.Point(70, 119);
-            this.txtPriority.Name = "txtPriority";
-            this.txtPriority.Size = new System.Drawing.Size(122, 29);
-            this.txtPriority.TabIndex = 12;
-            this.txtPriority.Visible = false;
             // 
             // lblPriority
             // 
@@ -166,16 +160,49 @@
             this.lblPriority.Size = new System.Drawing.Size(56, 20);
             this.lblPriority.TabIndex = 13;
             this.lblPriority.Text = "Priority";
-            this.lblPriority.Visible = false;
+            // 
+            // lblBorder
+            // 
+            this.lblBorder.BackColor = System.Drawing.Color.Transparent;
+            this.lblBorder.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblBorder.Cursor = System.Windows.Forms.Cursors.Default;
+            this.lblBorder.Location = new System.Drawing.Point(12, 9);
+            this.lblBorder.Name = "lblBorder";
+            this.lblBorder.Size = new System.Drawing.Size(320, 159);
+            this.lblBorder.TabIndex = 15;
+            // 
+            // lblInfoPriority
+            // 
+            this.lblInfoPriority.AutoSize = true;
+            this.lblInfoPriority.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblInfoPriority.Location = new System.Drawing.Point(198, 112);
+            this.lblInfoPriority.Name = "lblInfoPriority";
+            this.lblInfoPriority.Size = new System.Drawing.Size(127, 39);
+            this.lblInfoPriority.TabIndex = 16;
+            this.lblInfoPriority.Text = "Imposta la priorità\r\nsolo se stai utilizzando\r\nuna politica Round Robin";
+            // 
+            // selectorPriority
+            // 
+            this.selectorPriority.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.selectorPriority.FormattingEnabled = true;
+            this.selectorPriority.Items.AddRange(new object[] {
+            "Alta",
+            "Media",
+            "Bassa"});
+            this.selectorPriority.Location = new System.Drawing.Point(70, 119);
+            this.selectorPriority.Name = "selectorPriority";
+            this.selectorPriority.Size = new System.Drawing.Size(121, 32);
+            this.selectorPriority.TabIndex = 17;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(791, 627);
+            this.Controls.Add(this.selectorPriority);
+            this.Controls.Add(this.lblInfoPriority);
             this.Controls.Add(this.lblPriority);
-            this.Controls.Add(this.txtPriority);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.listBox);
             this.Controls.Add(this.selector);
@@ -186,6 +213,7 @@
             this.Controls.Add(this.lblTime);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.lblName);
+            this.Controls.Add(this.lblBorder);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -206,8 +234,10 @@
         private System.Windows.Forms.ComboBox selector;
         private System.Windows.Forms.ListBox listBox;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtPriority;
         private System.Windows.Forms.Label lblPriority;
+        private System.Windows.Forms.Label lblBorder;
+        private System.Windows.Forms.Label lblInfoPriority;
+        private System.Windows.Forms.ComboBox selectorPriority;
     }
 }
 
