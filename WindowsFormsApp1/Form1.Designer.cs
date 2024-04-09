@@ -34,9 +34,10 @@
             this.txtTime = new System.Windows.Forms.TextBox();
             this.btnAggiungi = new System.Windows.Forms.Button();
             this.btnEsegui = new System.Windows.Forms.Button();
-            this.lblWrite = new System.Windows.Forms.Label();
             this.lblError = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.selector = new System.Windows.Forms.ComboBox();
+            this.listBox = new System.Windows.Forms.ListBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblName
@@ -80,7 +81,7 @@
             // 
             this.btnAggiungi.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.btnAggiungi.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAggiungi.Location = new System.Drawing.Point(245, 174);
+            this.btnAggiungi.Location = new System.Drawing.Point(238, 183);
             this.btnAggiungi.Name = "btnAggiungi";
             this.btnAggiungi.Size = new System.Drawing.Size(89, 37);
             this.btnAggiungi.TabIndex = 4;
@@ -100,35 +101,50 @@
             this.btnEsegui.UseVisualStyleBackColor = false;
             this.btnEsegui.Click += new System.EventHandler(this.btnEsegui_Click);
             // 
-            // lblWrite
-            // 
-            this.lblWrite.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.lblWrite.Location = new System.Drawing.Point(20, 223);
-            this.lblWrite.Name = "lblWrite";
-            this.lblWrite.Size = new System.Drawing.Size(762, 209);
-            this.lblWrite.TabIndex = 6;
-            // 
             // lblError
             // 
-            this.lblError.BackColor = System.Drawing.Color.Transparent;
-            this.lblError.Location = new System.Drawing.Point(665, 24);
+            this.lblError.BackColor = System.Drawing.Color.IndianRed;
+            this.lblError.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblError.ForeColor = System.Drawing.Color.Black;
+            this.lblError.Location = new System.Drawing.Point(616, 24);
             this.lblError.Name = "lblError";
-            this.lblError.Size = new System.Drawing.Size(117, 73);
+            this.lblError.Size = new System.Drawing.Size(166, 94);
             this.lblError.TabIndex = 8;
+            this.lblError.Visible = false;
             // 
-            // comboBox1
+            // selector
             // 
-            this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "First In First Out",
-            "Short Job First",
+            this.selector.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.selector.FormattingEnabled = true;
+            this.selector.Items.AddRange(new object[] {
+            "First Come First Served",
+            "Shortest Job First",
             "Round Robin",
             "Round Robin Limitato"});
-            this.comboBox1.Location = new System.Drawing.Point(23, 183);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 28);
-            this.comboBox1.TabIndex = 9;
+            this.selector.Location = new System.Drawing.Point(23, 192);
+            this.selector.Name = "selector";
+            this.selector.Size = new System.Drawing.Size(188, 28);
+            this.selector.TabIndex = 9;
+            // 
+            // listBox
+            // 
+            this.listBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listBox.FormattingEnabled = true;
+            this.listBox.ItemHeight = 16;
+            this.listBox.Location = new System.Drawing.Point(23, 238);
+            this.listBox.Name = "listBox";
+            this.listBox.Size = new System.Drawing.Size(745, 196);
+            this.listBox.TabIndex = 10;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(20, 157);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(127, 32);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "Seleziona la politica\r\nche vuoi utilizzare";
             // 
             // Form1
             // 
@@ -136,9 +152,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.listBox);
+            this.Controls.Add(this.selector);
             this.Controls.Add(this.lblError);
-            this.Controls.Add(this.lblWrite);
             this.Controls.Add(this.btnEsegui);
             this.Controls.Add(this.btnAggiungi);
             this.Controls.Add(this.txtTime);
@@ -147,6 +164,7 @@
             this.Controls.Add(this.lblName);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -160,9 +178,10 @@
         private System.Windows.Forms.TextBox txtTime;
         private System.Windows.Forms.Button btnAggiungi;
         private System.Windows.Forms.Button btnEsegui;
-        private System.Windows.Forms.Label lblWrite;
         private System.Windows.Forms.Label lblError;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox selector;
+        private System.Windows.Forms.ListBox listBox;
+        private System.Windows.Forms.Label label1;
     }
 }
 
