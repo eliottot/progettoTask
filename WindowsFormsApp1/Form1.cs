@@ -47,11 +47,7 @@ namespace WindowsFormsApp1
 
         private void btnEsegui_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < counter; i++)
-            {
-                listBox.Items.Add ($"{processi[i].name}.exe aggiunto. Tempo necessario: {processi[i].time} ms");
-            }
-            listBox.Items.Add($"||| Inizializzazione processi... |||");
+            ProcessiAggiuntiTesto(processi, counter);
 
             /*if (selector.Text == null)
             {
@@ -67,10 +63,11 @@ namespace WindowsFormsApp1
                     }
                 case "Shortest Job First":
                     {
+                        ShortestJobFirst(processi, counter);
                         break;
                     }
                 case "Round Robin":
-                    {
+                    {                       
                         break;
                     }
                 case "Round Robin Limitato":
@@ -86,8 +83,19 @@ namespace WindowsFormsApp1
             }
         }
 
+        private void ProcessiAggiuntiTesto(Task[] processi, int counter)
+        {
+            for (int i = 0; i < counter; i++)
+            {
+                listBox.Items.Add($"{processi[i].name}.exe aggiunto. Tempo necessario: {processi[i].time} ms");
+            }
+            listBox.Items.Add($"||| Inizializzazione processi... |||");
+        }
+
         private void FirstComeFirstServed(Task[] processi, int counter)
         {
+            listBox.Items.Clear();
+            ProcessiAggiuntiTesto(processi, counter);
             for (int i = 0; i < counter; i++)
             {
                 listBox.Items.Add($"{processi[i].name}.exe iniziato.");
@@ -95,6 +103,14 @@ namespace WindowsFormsApp1
             }
         }
         private void ShortestJobFirst(Task[] processi, int counter)
+        {
+            listBox.Items.Clear();
+            ProcessiAggiuntiTesto(processi, counter);
+            OrdinamentoCrescente(processi, counter);
+            FirstComeFirstServed(processi, counter);
+        }
+
+        private void OrdinamentoCrescente(Task[] array, int counter)
         {
             bool swapped;
 
@@ -117,17 +133,7 @@ namespace WindowsFormsApp1
                 counter--;
 
             } while (swapped);
-
-            FirstComeFirstServed(processi, counter);
         }
-
-        private void OrdinamentoCrescente(Task[] array, int counter)
-        {
-
-        }
-
-
-
 
     }
 }

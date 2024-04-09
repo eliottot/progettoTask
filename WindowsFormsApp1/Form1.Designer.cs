@@ -38,6 +38,8 @@
             this.selector = new System.Windows.Forms.ComboBox();
             this.listBox = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.txtPriority = new System.Windows.Forms.TextBox();
+            this.lblPriority = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblName
@@ -63,7 +65,7 @@
             // 
             this.lblTime.AutoSize = true;
             this.lblTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTime.Location = new System.Drawing.Point(12, 84);
+            this.lblTime.Location = new System.Drawing.Point(13, 78);
             this.lblTime.Name = "lblTime";
             this.lblTime.Size = new System.Drawing.Size(43, 20);
             this.lblTime.TabIndex = 2;
@@ -72,7 +74,7 @@
             // txtTime
             // 
             this.txtTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTime.Location = new System.Drawing.Point(70, 77);
+            this.txtTime.Location = new System.Drawing.Point(70, 72);
             this.txtTime.Name = "txtTime";
             this.txtTime.Size = new System.Drawing.Size(122, 29);
             this.txtTime.TabIndex = 3;
@@ -146,12 +148,34 @@
             this.label1.TabIndex = 11;
             this.label1.Text = "Seleziona la politica\r\nche vuoi utilizzare";
             // 
+            // txtPriority
+            // 
+            this.txtPriority.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPriority.Location = new System.Drawing.Point(70, 119);
+            this.txtPriority.Name = "txtPriority";
+            this.txtPriority.Size = new System.Drawing.Size(122, 29);
+            this.txtPriority.TabIndex = 12;
+            this.txtPriority.Visible = false;
+            // 
+            // lblPriority
+            // 
+            this.lblPriority.AutoSize = true;
+            this.lblPriority.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPriority.Location = new System.Drawing.Point(13, 125);
+            this.lblPriority.Name = "lblPriority";
+            this.lblPriority.Size = new System.Drawing.Size(56, 20);
+            this.lblPriority.TabIndex = 13;
+            this.lblPriority.Text = "Priority";
+            this.lblPriority.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lblPriority);
+            this.Controls.Add(this.txtPriority);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.listBox);
             this.Controls.Add(this.selector);
@@ -182,6 +206,8 @@
         private System.Windows.Forms.ComboBox selector;
         private System.Windows.Forms.ListBox listBox;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtPriority;
+        private System.Windows.Forms.Label lblPriority;
     }
 }
 
