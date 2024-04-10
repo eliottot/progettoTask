@@ -25,35 +25,30 @@ namespace WindowsFormsApp1
         private void Form1_Load(object sender, EventArgs e)
         {
             selector.Text = "First Come First Served";
+            selectorPriority.Enabled = false;
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void btnAggiungi_Click(object sender, EventArgs e)
         {
             var processo = new Task();
-            processo.name = txtName.Text;
-            processo.time = Convert.ToInt32(txtTime.Text);
-            processo.priority = selectorPriority.Text;
+            processo.name = txtName.Text; processo.time = Convert.ToInt32(txtTime.Text); processo.priority = selectorPriority.Text;
 
             processi[counter] = processo;
 
             txtName.Clear();
             txtTime.Clear();
+            selectorPriority.Items.Clear();
             counter++;
         }
 
         private void btnEsegui_Click(object sender, EventArgs e)
         {
             ProcessiAggiuntiTesto(processi, counter);
-
-            /*if (selector.Text == null)
-            {
-                lblError.Visible = true;
-            }*/
 
             switch (selector.Text)
             {
@@ -68,7 +63,7 @@ namespace WindowsFormsApp1
                         break;
                     }
                 case "Round Robin":
-                    {                       
+                    {
                         break;
                     }
                 case "Round Robin Limitato":
@@ -91,6 +86,21 @@ namespace WindowsFormsApp1
                 listBox.Items.Add($"{processi[i].name}.exe aggiunto. Tempo necessario: {processi[i].time} ms");
             }
             listBox.Items.Add($"||| Inizializzazione processi... |||");
+        }
+
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            txtName.Clear();
+            txtTime.Clear();
+            selectorPriority.Items.Clear();
+            listBox.Items.Clear();
+            for (int i = 0; i < counter ; i++)
+            {
+                processi[i].name = null;
+                processi[i].time = 0;
+                processi[i].priority = null;
+            }
+            counter = 0;
         }
 
         private void FirstComeFirstServed(Task[] processi, int counter)

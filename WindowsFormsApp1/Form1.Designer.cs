@@ -42,6 +42,7 @@
             this.lblBorder = new System.Windows.Forms.Label();
             this.lblInfoPriority = new System.Windows.Forms.Label();
             this.selectorPriority = new System.Windows.Forms.ComboBox();
+            this.btnReset = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblName
@@ -194,12 +195,25 @@
             this.selectorPriority.Size = new System.Drawing.Size(121, 32);
             this.selectorPriority.TabIndex = 17;
             // 
+            // btnReset
+            // 
+            this.btnReset.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReset.Location = new System.Drawing.Point(536, 249);
+            this.btnReset.Name = "btnReset";
+            this.btnReset.Size = new System.Drawing.Size(110, 51);
+            this.btnReset.TabIndex = 18;
+            this.btnReset.Text = "Reset";
+            this.btnReset.UseVisualStyleBackColor = false;
+            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.ClientSize = new System.Drawing.Size(791, 627);
+            this.Controls.Add(this.btnReset);
             this.Controls.Add(this.selectorPriority);
             this.Controls.Add(this.lblInfoPriority);
             this.Controls.Add(this.lblPriority);
@@ -238,6 +252,7 @@
         private System.Windows.Forms.Label lblBorder;
         private System.Windows.Forms.Label lblInfoPriority;
         private System.Windows.Forms.ComboBox selectorPriority;
+        private System.Windows.Forms.Button btnReset;
     }
 }
 
