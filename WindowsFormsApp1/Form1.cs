@@ -25,7 +25,6 @@ namespace WindowsFormsApp1
         private void Form1_Load(object sender, EventArgs e)
         {
             selector.Text = "First Come First Served";
-            selectorPriority.Enabled = false;
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -44,9 +43,19 @@ namespace WindowsFormsApp1
             txtTime.Clear();
             selectorPriority.Items.Clear();
             counter++;
+
+            try
+            {
+                
+            }
+            catch
+            {
+                    
+            }
         }
 
-        private void btnEsegui_Click(object sender, EventArgs e)
+        
+         private void btnEsegui_Click(object sender, EventArgs e)
         {
             ProcessiAggiuntiTesto(processi, counter);
 
@@ -143,23 +152,25 @@ namespace WindowsFormsApp1
                 }
             }
         }
-        private void OrdinamentoPriorita(Task[] array, int counter)
-        {
-            int temp = 0;
 
-            for (int i = 0; i < counter - 1; i++)
+        /*private void RoundRobin(Task[] processi, int counter, int tempoTot, int timeSlice)
+        {
+            int i = 0;
+            while (tempoTot > 0 && processi.Any(p => p.time > 0))
             {
-                for (int j = i + 1; j < counter; j++)
+                if (processi[i].time > 0)
                 {
-                    if (array[j].priority == "Alta")
-                    {
-                        temp = array[j].time;
-                        array[j].time = array[i].time;
-                        array[i].time = temp;
-                    }
+                    int temp = Math.Min(processi[i].time, timeSlice);
+                    processi[i].time -= temp;
+                    tempoTot -= temp;
+                    processi[i].counter++;
+                    listBox.Items.Add($"Processo {processi[i].name}.exe {(processi[i].counter == 1 ? "inizia" : "continua")} con {processi[i].time} tempo rimanente");
+                    if (processi[i].time <= 0) listBox.Items.Add($"Processo {processi[i].name}.exe terminato in {processi[i].counter} time-slice");
                 }
+                i = (i + 1) % counter;
             }
-        }
+        }*/
+
 
     }
 }
