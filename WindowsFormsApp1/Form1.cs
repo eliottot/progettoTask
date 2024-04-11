@@ -15,6 +15,8 @@ namespace WindowsFormsApp1
     {
         Task[] processi = new Task[30];
         int counter = 0;
+        int tempoTot;
+        int timeSlice = 10;
 
 
         public Form1()
@@ -61,30 +63,21 @@ namespace WindowsFormsApp1
 
             switch (selector.Text)
             {
-                case "First Come First Served":
-                    {
-                        FirstComeFirstServed(processi, counter);
-                        break;
-                    }
-                case "Shortest Job First":
-                    {
-                        ShortestJobFirst(processi, counter);
-                        break;
-                    }
+                case "First Come First Served":                   
+                        FirstComeFirstServed(processi, counter); break;   
+                    
+                case "Shortest Job First":          
+                        ShortestJobFirst(processi, counter); break;   
+                    
                 case "Round Robin":
-                    {
-                        break;
-                    }
+                        RoundRobin(processi, counter); break;
+
                 case "Round Robin Limitato":
-                    {
                         break;
-                    }
+
                 default:
-                    {
                         lblError.Text = "ERROR\nLa politica selezionata non esiste o è stata scritta nel modo errato.";
-                        lblError.Visible = true;
-                        break;
-                    }
+                        lblError.Visible = true; break;
             }
         }
 
@@ -133,6 +126,7 @@ namespace WindowsFormsApp1
         {
             listBox.Items.Clear();
             ProcessiAggiuntiTesto(processi, counter);
+            //OrdinamentoRoundRobin(processi, counter, tempoTot, timeSlice);
         }
 
         private void OrdinamentoCrescente(Task[] array, int counter)
@@ -153,9 +147,11 @@ namespace WindowsFormsApp1
             }
         }
 
-        /*private void RoundRobin(Task[] processi, int counter, int tempoTot, int timeSlice)
+        /*
+        private void OrdinamentoRoundRobin(Task[] processi, int counter, int tempoTot, int timeSlice)
         {
             int i = 0;
+            tempoTot = counter * timeSlice;
             while (tempoTot > 0 && processi.Any(p => p.time > 0))
             {
                 if (processi[i].time > 0)
@@ -163,14 +159,16 @@ namespace WindowsFormsApp1
                     int temp = Math.Min(processi[i].time, timeSlice);
                     processi[i].time -= temp;
                     tempoTot -= temp;
-                    processi[i].counter++;
-                    listBox.Items.Add($"Processo {processi[i].name}.exe {(processi[i].counter == 1 ? "inizia" : "continua")} con {processi[i].time} tempo rimanente");
-                    if (processi[i].time <= 0) listBox.Items.Add($"Processo {processi[i].name}.exe terminato in {processi[i].counter} time-slice");
+                    counter++;
+                    listBox.Items.Add($"Processo {processi[i].name}.exe {(counter == 1 ? "inizia" : "continua")} con {processi[i].time} tempo rimanente");
+                    if (processi[i].time <= 0) listBox.Items.Add($"Processo {processi[i].name}.exe terminato in {counter} time-slice");
                 }
                 i = (i + 1) % counter;
             }
         }*/
+        private void OrdinamentoRoundRobin(Task[] processi, int counter, int tempoTot, int timeSlice)
+        {
 
-
+        }
     }
 }
