@@ -232,22 +232,24 @@
             // 
             this.lblTimeSlice.AutoSize = true;
             this.lblTimeSlice.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTimeSlice.Location = new System.Drawing.Point(252, 138);
+            this.lblTimeSlice.Location = new System.Drawing.Point(237, 138);
             this.lblTimeSlice.Name = "lblTimeSlice";
-            this.lblTimeSlice.Size = new System.Drawing.Size(65, 32);
+            this.lblTimeSlice.Size = new System.Drawing.Size(92, 32);
             this.lblTimeSlice.TabIndex = 22;
-            this.lblTimeSlice.Text = "Inserisci il\r\ntime slice";
+            this.lblTimeSlice.Text = "Inserisci il\r\ntime slice (ms)";
+            this.lblTimeSlice.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblTimeSlice.Visible = false;
             // 
             // lblTimeMax
             // 
             this.lblTimeMax.AutoSize = true;
             this.lblTimeMax.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTimeMax.Location = new System.Drawing.Point(367, 138);
+            this.lblTimeMax.Location = new System.Drawing.Point(356, 138);
             this.lblTimeMax.Name = "lblTimeMax";
-            this.lblTimeMax.Size = new System.Drawing.Size(65, 32);
+            this.lblTimeMax.Size = new System.Drawing.Size(89, 32);
             this.lblTimeMax.TabIndex = 23;
-            this.lblTimeMax.Text = "Inserisci il\r\ntime max";
+            this.lblTimeMax.Text = "Inserisci il\r\ntime max (ms)";
+            this.lblTimeMax.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblTimeMax.Visible = false;
             // 
             // Form1
