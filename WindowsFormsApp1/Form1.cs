@@ -15,10 +15,8 @@ namespace WindowsFormsApp1
     {
         Task[] processi = new Task[30];
         int counter = 0;
-        int tempoTot;
-        int timeSlice = 10;
 
-
+        #region funzioni iniziali
         public Form1()
         {
             InitializeComponent();
@@ -33,54 +31,84 @@ namespace WindowsFormsApp1
         {
 
         }
+        #endregion
 
+        #region Tasti
         private void btnAggiungi_Click(object sender, EventArgs e)
         {
+
             var processo = new Task();
+
+            try
+            {
+                processo.time = Convert.ToInt32(txtTime.Text);
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show("I dati non sono stati inseriti nel modo corretto\n" + error.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                lblError.Text = error.Message;
+                //lblError.Text = ("Il tempo inserito non è valido.");
+                txtName.Clear();
+                txtTime.Clear();
+                selectorPriority.Items.Clear();
+                return;
+            }
             processo.name = txtName.Text; processo.time = Convert.ToInt32(txtTime.Text); processo.priority = selectorPriority.Text;
 
             processi[counter] = processo;
+
+            ProcessoAggiuntoTesto(processi, counter);
 
             txtName.Clear();
             txtTime.Clear();
             selectorPriority.Items.Clear();
             counter++;
-
-            try
-            {
-                
-            }
-            catch
-            {
-                    
-            }
         }
 
-        
-         private void btnEsegui_Click(object sender, EventArgs e)
+        private void btnEsegui_Click(object sender, EventArgs e)
         {
             ProcessiAggiuntiTesto(processi, counter);
 
             switch (selector.Text)
             {
-                case "First Come First Served":                   
-                        FirstComeFirstServed(processi, counter); break;   
-                    
-                case "Shortest Job First":          
-                        ShortestJobFirst(processi, counter); break;   
-                    
+                case "First Come First Served":
+                    FirstComeFirstServed(processi, counter); break;
+
+                case "Shortest Job First":
+                    ShortestJobFirst(processi, counter); break;
+
                 case "Round Robin":
-                        RoundRobin(processi, counter); break;
+                    RoundRobin(processi, counter); break;
 
                 case "Round Robin Limitato":
-                        break;
+                    RoundRobinLimitato(processi, counter); break;
 
                 default:
-                        lblError.Text = "ERROR\nLa politica selezionata non esiste o è stata scritta nel modo errato.";
-                        lblError.Visible = true; break;
+                    lblError.Text = "ERROR\nLa politica selezionata non esiste o è stata scritta nel modo errato.";
+                    lblError.Visible = true; break;
             }
         }
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            txtName.Clear();
+            txtTime.Clear();
+            selectorPriority.Items.Clear();
+            listBox.Items.Clear();
+            for (int i = 0; i < counter; i++)
+            {
+                processi[i].name = null;
+                processi[i].time = 0;
+                processi[i].priority = null;
+            }
+            counter = 0;
+        }
+        #endregion
 
+        #region funzioni processi aggiunti
+        private void ProcessoAggiuntoTesto(Task[] processi, int counter)
+        {
+            listBox.Items.Add($"{processi[counter].name}.exe aggiunto. Tempo necessario: {processi[counter].time} ms");
+        }
         private void ProcessiAggiuntiTesto(Task[] processi, int counter)
         {
             for (int i = 0; i < counter; i++)
@@ -89,22 +117,9 @@ namespace WindowsFormsApp1
             }
             listBox.Items.Add($"||| Inizializzazione processi... |||");
         }
+        #endregion
 
-        private void btnReset_Click(object sender, EventArgs e)
-        {
-            txtName.Clear();
-            txtTime.Clear();
-            selectorPriority.Items.Clear();
-            listBox.Items.Clear();
-            for (int i = 0; i < counter ; i++)
-            {
-                processi[i].name = null;
-                processi[i].time = 0;
-                processi[i].priority = null;
-            }
-            counter = 0;
-        }
-
+        #region funzioni politiche
         private void FirstComeFirstServed(Task[] processi, int counter)
         {
             listBox.Items.Clear();
@@ -114,6 +129,7 @@ namespace WindowsFormsApp1
                 listBox.Items.Add($"{processi[i].name}.exe iniziato.");
                 listBox.Items.Add($"{processi[i].name}.exe terminato. Trascorsi: {processi[i].time} ms");
             }
+            listBox.TopIndex = listBox.Items.Count - 1;
         }
         private void ShortestJobFirst(Task[] processi, int counter)
         {
@@ -121,14 +137,18 @@ namespace WindowsFormsApp1
             ProcessiAggiuntiTesto(processi, counter);
             OrdinamentoCrescente(processi, counter);
             FirstComeFirstServed(processi, counter);
+            listBox.TopIndex = listBox.Items.Count - 1;
         }
         private void RoundRobin(Task[] processi, int counter)
         {
-            listBox.Items.Clear();
-            ProcessiAggiuntiTesto(processi, counter);
-            //OrdinamentoRoundRobin(processi, counter, tempoTot, timeSlice);
+            OrdinamentoRoundRobin(processi, counter);
+            listBox.TopIndex = listBox.Items.Count - 1;
         }
-
+        private void RoundRobinLimitato(Task[] processi, int counter)
+        {
+            OrdinamentoRoundRobinLimitato(processi, counter);
+            listBox.TopIndex = listBox.Items.Count - 1;
+        }
         private void OrdinamentoCrescente(Task[] array, int counter)
         {
             int temp = 0;
@@ -147,28 +167,98 @@ namespace WindowsFormsApp1
             }
         }
 
-        /*
-        private void OrdinamentoRoundRobin(Task[] processi, int counter, int tempoTot, int timeSlice)
+        private void OrdinamentoRoundRobin(Task[] processi, int counter)
         {
-            int i = 0;
-            tempoTot = counter * timeSlice;
-            while (tempoTot > 0 && processi.Any(p => p.time > 0))
-            {
-                if (processi[i].time > 0)
-                {
-                    int temp = Math.Min(processi[i].time, timeSlice);
-                    processi[i].time -= temp;
-                    tempoTot -= temp;
-                    counter++;
-                    listBox.Items.Add($"Processo {processi[i].name}.exe {(counter == 1 ? "inizia" : "continua")} con {processi[i].time} tempo rimanente");
-                    if (processi[i].time <= 0) listBox.Items.Add($"Processo {processi[i].name}.exe terminato in {counter} time-slice");
-                }
-                i = (i + 1) % counter;
-            }
-        }*/
-        private void OrdinamentoRoundRobin(Task[] processi, int counter, int tempoTot, int timeSlice)
-        {
+            listBox.Items.Clear();
+            ProcessiAggiuntiTesto(processi, counter);
 
+            int tempoTot = CalcolaTempoTotale(processi, counter);
+            int timeSlice = Convert.ToInt32(txtTimeSlice.Text);
+            int tempoTrascorso = 0;
+
+            while (tempoTrascorso < tempoTot) // continua finchè non esaurisce il tempo stabilito
+            {
+                for (int i = 0; i < counter; i++)
+                {
+                    if (processi[i].time > 0)
+                    {
+                        int tempoEseguito = Math.Min(processi[i].time, timeSlice); // restituisce il valore minore
+                        listBox.Items.Add($"{processi[i].name}.exe iniziato. Tempo di esecuzione: {tempoEseguito} ms");
+                        processi[i].time -= tempoEseguito;
+                        tempoTrascorso += tempoEseguito;
+                        if (processi[i].time <= 0)
+                        {
+                            listBox.Items.Add($"{processi[i].name}.exe terminato. Trascorsi: {tempoTrascorso} ms");
+                        }
+                    }
+                }
+            }
+        }
+        private void OrdinamentoRoundRobinLimitato(Task[] processi, int counter)
+        {
+            listBox.Items.Clear();
+            ProcessiAggiuntiTesto(processi, counter);
+
+            int tempoMax = Convert.ToInt32(txtTimeMax.Text);
+            int tempoTot = CalcolaTempoTotale(processi, counter);
+            int tempoTrascorso = 0;
+
+            while (tempoTrascorso < tempoTot)
+            {
+                for (int i = 0; i < counter; i++)
+                {
+                    if (processi[i].time > 0)
+                    {
+                        int tempoEseguito = Math.Min(processi[i].time, tempoMax);
+                        listBox.Items.Add($"{processi[i].name}.exe iniziato. Tempo necessario: {tempoEseguito} ms");
+                        processi[i].time -= tempoEseguito;
+                        tempoTrascorso += tempoEseguito;
+                        if (processi[i].time <= 0)
+                        {
+                            listBox.Items.Add($"{processi[i].name}.exe terminato. Trascorsi: {tempoTrascorso} ms");
+                        }
+                        else if (tempoEseguito == tempoMax)
+                        {
+                            listBox.Items.Add($"{processi[i].name}.exe sospeso. Trascorsi: {tempoTrascorso} ms");
+                        }
+                    }
+                }
+            }
+        }
+        private int CalcolaTempoTotale(Task[] processi, int counter)
+        {
+            int tempoTot = 0;
+            for (int i = 0; i < counter; i++)
+            {
+                tempoTot += processi[i].time;
+            }
+            return tempoTot;
+        }
+
+        private void selector_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (selector.SelectedIndex == 3) 
+            {
+                txtTimeSlice.Visible = true;
+                txtTimeMax.Visible = true;
+                lblTimeSlice.Visible = true;
+                lblTimeMax.Visible = true;
+            }
+            else if (selector.SelectedIndex == 2)
+            {
+                txtTimeSlice.Visible = true;
+                txtTimeMax.Visible = false;
+                lblTimeSlice.Visible = true;
+                lblTimeMax.Visible = false;
+            }
+            else 
+            { 
+                txtTimeSlice.Visible = false;
+                txtTimeMax.Visible = false;
+                lblTimeSlice.Visible = false;
+                lblTimeMax.Visible = false;
+            }
         }
     }
+    #endregion
 }

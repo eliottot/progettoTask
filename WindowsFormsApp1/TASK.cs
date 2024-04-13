@@ -11,5 +11,8 @@ namespace WindowsFormsApp1
             public string name { get; set; }
             public int time { get; set; }
             public string priority { get; set; }
+            public int counter { get; set; }
+            public int timeSlice { get; set; }
+            
         }
 }
