@@ -46,6 +46,7 @@
             this.txtTimeMax = new System.Windows.Forms.TextBox();
             this.lblTimeSlice = new System.Windows.Forms.Label();
             this.lblTimeMax = new System.Windows.Forms.Label();
+            this.btnMetriche = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -252,12 +253,26 @@
             this.lblTimeMax.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblTimeMax.Visible = false;
             // 
+            // btnMetriche
+            // 
+            this.btnMetriche.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnMetriche.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMetriche.Location = new System.Drawing.Point(23, 249);
+            this.btnMetriche.Name = "btnMetriche";
+            this.btnMetriche.Size = new System.Drawing.Size(151, 51);
+            this.btnMetriche.TabIndex = 24;
+            this.btnMetriche.Text = "Visualizza metriche";
+            this.btnMetriche.UseVisualStyleBackColor = false;
+            this.btnMetriche.Visible = false;
+            this.btnMetriche.Click += new System.EventHandler(this.btnMetriche_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.ClientSize = new System.Drawing.Size(791, 627);
+            this.Controls.Add(this.btnMetriche);
             this.Controls.Add(this.lblTimeMax);
             this.Controls.Add(this.lblTimeSlice);
             this.Controls.Add(this.txtTimeMax);
@@ -301,6 +316,7 @@
         private System.Windows.Forms.TextBox txtTimeMax;
         private System.Windows.Forms.Label lblTimeSlice;
         private System.Windows.Forms.Label lblTimeMax;
+        private System.Windows.Forms.Button btnMetriche;
     }
 }
 
