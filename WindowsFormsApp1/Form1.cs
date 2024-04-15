@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -46,13 +47,11 @@ namespace WindowsFormsApp1
             catch (Exception error)
             {
                 MessageBox.Show("I dati non sono stati inseriti nel modo corretto\n" + error.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                lblError.Text = error.Message;
-                //lblError.Text = ("Il tempo inserito non è valido.");
                 txtName.Clear();
                 txtTime.Clear();
                 selectorPriority.Items.Clear();
-                return;
             }
+
             processo.name = txtName.Text; processo.time = Convert.ToInt32(txtTime.Text); processo.priority = selectorPriority.Text;
 
             processi[counter] = processo;
@@ -68,6 +67,20 @@ namespace WindowsFormsApp1
         private void btnEsegui_Click(object sender, EventArgs e)
         {
             ProcessiAggiuntiTesto(processi, counter);
+
+            try
+            {
+                txtName.Text = null; txtTime.Text = null;
+                
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show("I dati non sono stati inseriti nel modo corretto\n" + error.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtName.Clear();
+                txtTime.Clear();
+                selectorPriority.Items.Clear();
+                listBox.Items.Clear();
+            }
 
             switch (selector.Text)
             {
@@ -110,6 +123,7 @@ namespace WindowsFormsApp1
             listBox.Items.Add($"||| METRICHE |||");
             listBox.Items.Add($"Throughput: {Throughput(processi, counter)} processi");
             listBox.Items.Add($"Tournaround Time: {TournaroundTime(processi, counter)} ms");
+            listBox.TopIndex = listBox.Items.Count - 1;
 
         }
         #endregion
@@ -191,6 +205,8 @@ namespace WindowsFormsApp1
             int timeSlice = Convert.ToInt32(txtTimeSlice.Text);
             int tempoTrascorso = 0;
 
+            listBox.Items.Add($"--- Time Slice per ogni processo: {timeSlice} ms ---");
+
             while (tempoTrascorso < tempoTot) // continua finchè non esaurisce il tempo stabilito
             {
                 for (int i = 0; i < counter; i++)
@@ -198,7 +214,8 @@ namespace WindowsFormsApp1
                     if (processi[i].time > 0)
                     {
                         int tempoEseguito = Math.Min(processi[i].time, timeSlice); // restituisce il valore minore
-                        listBox.Items.Add($"{processi[i].name}.exe iniziato. Tempo di esecuzione: {tempoEseguito} ms");
+                        listBox.Items.Add($"{processi[i].name}.exe iniziato. Trascorsi: {tempoTrascorso} ms");
+                        listBox.Items.Add($"{processi[i].name}.exe sospeso.");
                         processi[i].time -= tempoEseguito;
                         tempoTrascorso += tempoEseguito;
                         if (processi[i].time <= 0)
@@ -216,21 +233,27 @@ namespace WindowsFormsApp1
             int tempoTot = CalcolaTempoTotale(processi, counter);
             int tempoTrascorso = 0;
 
+            for (int i = 0; i < counter; i++)
+            {
+                processi[i].timeSlice = timeSlice;
+            }
+
             while (tempoTrascorso < tempoTot)
             {
                 for (int i = 0; i < counter; i++)
                 {
                     if (processi[i].time > 0)
                     {
-                        int tempoEseguito = Math.Min(processi[i].time, timeSlice);
-                        listBox.Items.Add($"{processi[i].name}.exe iniziato. Tempo necessario: {tempoEseguito} ms");
+                        int tempoEseguito = Math.Min(processi[i].time, timeSlice); // restituisce il valore minore
+                        listBox.Items.Add($"{processi[i].name}.exe iniziato. Trascorsi: {tempoTrascorso} ms");
+                        listBox.Items.Add($"{processi[i].name}.exe sospeso.");
                         processi[i].time -= tempoEseguito;
                         tempoTrascorso += tempoEseguito;
                         if (processi[i].time <= 0)
                         {
                             listBox.Items.Add($"{processi[i].name}.exe terminato. Trascorsi: {tempoTrascorso} ms");
                         }
-                        else if (tempoEseguito == maxTimeSlice)
+                    else if (tempoEseguito == maxTimeSlice)
                         {
                             listBox.Items.Add($"{processi[i].name}.exe sospeso. Trascorsi: {tempoTrascorso} ms");
                         }
@@ -283,7 +306,9 @@ namespace WindowsFormsApp1
                 throughput += processi[i].time;
             }
 
-            return throughput / counter;
+            throughput /= counter;
+
+            return throughput;
         }
         private float TournaroundTime(Task[] processi, int counter)
         {
@@ -296,7 +321,6 @@ namespace WindowsFormsApp1
 
             return tournaroundTIme;
         }
-
         #endregion
     }
 }
