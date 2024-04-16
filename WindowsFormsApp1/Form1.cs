@@ -26,6 +26,7 @@ namespace WindowsFormsApp1
         private void Form1_Load(object sender, EventArgs e)
         {
             selector.Text = "First Come First Served";
+            btnEsegui.Enabled = false;
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -42,7 +43,7 @@ namespace WindowsFormsApp1
 
             try
             {
-                processo.time = Convert.ToInt32(txtTime.Text);
+                processo.name = txtName.Text; processo.time = Convert.ToInt32(txtTime.Text); processo.priority = selectorPriority.Text;
             }
             catch (Exception error)
             {
@@ -51,8 +52,6 @@ namespace WindowsFormsApp1
                 txtTime.Clear();
                 selectorPriority.Items.Clear();
             }
-
-            processo.name = txtName.Text; processo.time = Convert.ToInt32(txtTime.Text); processo.priority = selectorPriority.Text;
 
             processi[counter] = processo;
 
@@ -62,46 +61,29 @@ namespace WindowsFormsApp1
             txtTime.Clear();
             selectorPriority.Items.Clear();
             counter++;
+            btnEsegui.Enabled = true;
         }
 
         private void btnEsegui_Click(object sender, EventArgs e)
         {
-            ProcessiAggiuntiTesto(processi, counter);
-
-            try
-            {
-                txtName.Text = null; txtTime.Text = null;
-                
-            }
-            catch (Exception error)
-            {
-                MessageBox.Show("I dati non sono stati inseriti nel modo corretto\n" + error.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtName.Clear();
-                txtTime.Clear();
-                selectorPriority.Items.Clear();
-                listBox.Items.Clear();
-            }
-
             switch (selector.Text)
             {
                 case "First Come First Served":
-                    FirstComeFirstServed(processi, counter); break;
+                    FirstComeFirstServed(processi, counter); btnMetriche.Visible = true; break;
 
                 case "Shortest Job First":
-                    ShortestJobFirst(processi, counter); break;
+                    ShortestJobFirst(processi, counter); btnMetriche.Visible = true; break;
 
                 case "Round Robin":
-                    RoundRobin(processi, counter); break;
+                    RoundRobin(processi, counter); btnMetriche.Visible = true; break;
 
                 case "Round Robin Limitato":
-                    RoundRobinLimitato(processi, counter); break;
+                    RoundRobinLimitato(processi, counter); btnMetriche.Visible = true; break;
 
                 default:
                     lblError.Text = "ERROR\nLa politica selezionata non esiste o è stata scritta nel modo errato.";
-                    lblError.Visible = true; break;
-            }
-
-            btnMetriche.Visible = true;
+                    lblError.Visible = true; btnMetriche.Visible = false; break;
+            }           
         }
         private void btnReset_Click(object sender, EventArgs e)
         {
@@ -109,6 +91,7 @@ namespace WindowsFormsApp1
             txtTime.Clear();
             selectorPriority.Items.Clear();
             listBox.Items.Clear();
+            btnMetriche.Visible = false;
             for (int i = 0; i < counter; i++)
             {
                 processi[i].name = null;
@@ -233,35 +216,32 @@ namespace WindowsFormsApp1
             int tempoTot = CalcolaTempoTotale(processi, counter);
             int tempoTrascorso = 0;
 
-            for (int i = 0; i < counter; i++)
-            {
-                processi[i].timeSlice = timeSlice;
-            }
+            listBox.Items.Add($"--- Time Slice per ogni processo: {timeSlice} ms ---");
 
             while (tempoTrascorso < tempoTot)
             {
                 for (int i = 0; i < counter; i++)
                 {
-                    if (processi[i].time > 0)
+                    for (int j = 0; j < maxTimeSlice; j++)
                     {
-                        int tempoEseguito = Math.Min(processi[i].time, timeSlice); // restituisce il valore minore
-                        listBox.Items.Add($"{processi[i].name}.exe iniziato. Trascorsi: {tempoTrascorso} ms");
-                        listBox.Items.Add($"{processi[i].name}.exe sospeso.");
-                        processi[i].time -= tempoEseguito;
-                        tempoTrascorso += tempoEseguito;
-                        if (processi[i].time <= 0)
+                        if (processi[i].time > 0)
                         {
-                            listBox.Items.Add($"{processi[i].name}.exe terminato. Trascorsi: {tempoTrascorso} ms");
+                            int tempoEseguito = Math.Min(processi[i].time, timeSlice); // restituisce il valore minore
+                            listBox.Items.Add($"{processi[i].name}.exe iniziato. Trascorsi: {tempoTrascorso} ms");
+                            listBox.Items.Add($"{processi[i].name}.exe sospeso.");
+                            processi[i].time -= tempoEseguito;
+                            tempoTrascorso += tempoEseguito;
+                            if (processi[i].time <= 0)
+                            {
+                                listBox.Items.Add($"{processi[i].name}.exe terminato. Trascorsi: {tempoTrascorso} ms");
+                            }
                         }
-                    else if (tempoEseguito == maxTimeSlice)
-                        {
-                            listBox.Items.Add($"{processi[i].name}.exe sospeso. Trascorsi: {tempoTrascorso} ms");
-                        }
-                    }
+                    }               
                 }
             }
         }
-        private int CalcolaTempoTotale(Task[] processi, int counter)
+        
+            private int CalcolaTempoTotale(Task[] processi, int counter)
         {
             int tempoTot = 0;
             for (int i = 0; i < counter; i++)
@@ -306,7 +286,7 @@ namespace WindowsFormsApp1
                 throughput += processi[i].time;
             }
 
-            throughput /= counter;
+            throughput = counter / throughput;
 
             return throughput;
         }
@@ -318,6 +298,8 @@ namespace WindowsFormsApp1
             {
                 tournaroundTIme += processi[i].time;
             }
+
+            tournaroundTIme /= counter;
 
             return tournaroundTIme;
         }
