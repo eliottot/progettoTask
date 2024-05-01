@@ -38,8 +38,6 @@
             this.selector = new System.Windows.Forms.ComboBox();
             this.listBox = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.lblPriority = new System.Windows.Forms.Label();
-            this.selectorPriority = new System.Windows.Forms.ComboBox();
             this.btnReset = new System.Windows.Forms.Button();
             this.txtTimeSlice = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -158,31 +156,6 @@
             this.label1.TabIndex = 11;
             this.label1.Text = "Seleziona la politica\r\nche vuoi utilizzare";
             // 
-            // lblPriority
-            // 
-            this.lblPriority.AutoSize = true;
-            this.lblPriority.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPriority.Location = new System.Drawing.Point(29, 215);
-            this.lblPriority.Name = "lblPriority";
-            this.lblPriority.Size = new System.Drawing.Size(56, 20);
-            this.lblPriority.TabIndex = 13;
-            this.lblPriority.Text = "Priority";
-            this.lblPriority.Visible = false;
-            // 
-            // selectorPriority
-            // 
-            this.selectorPriority.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.selectorPriority.FormattingEnabled = true;
-            this.selectorPriority.Items.AddRange(new object[] {
-            "Alta",
-            "Media",
-            "Bassa"});
-            this.selectorPriority.Location = new System.Drawing.Point(90, 209);
-            this.selectorPriority.Name = "selectorPriority";
-            this.selectorPriority.Size = new System.Drawing.Size(121, 32);
-            this.selectorPriority.TabIndex = 17;
-            this.selectorPriority.Visible = false;
-            // 
             // btnReset
             // 
             this.btnReset.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
@@ -279,8 +252,6 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.txtTimeSlice);
             this.Controls.Add(this.btnReset);
-            this.Controls.Add(this.selectorPriority);
-            this.Controls.Add(this.lblPriority);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.listBox);
             this.Controls.Add(this.selector);
@@ -308,8 +279,6 @@
         private System.Windows.Forms.ComboBox selector;
         private System.Windows.Forms.ListBox listBox;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label lblPriority;
-        private System.Windows.Forms.ComboBox selectorPriority;
         private System.Windows.Forms.Button btnReset;
         private System.Windows.Forms.TextBox txtTimeSlice;
         private System.Windows.Forms.GroupBox groupBox1;

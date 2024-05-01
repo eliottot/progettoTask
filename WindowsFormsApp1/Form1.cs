@@ -38,19 +38,17 @@ namespace WindowsFormsApp1
         #region tasti
         private void btnAggiungi_Click(object sender, EventArgs e)
         {
-
             var processo = new Task();
 
             try
             {
-                processo.name = txtName.Text; processo.time = Convert.ToInt32(txtTime.Text); processo.priority = selectorPriority.Text;
+                processo.name = txtName.Text; processo.time = Convert.ToInt32(txtTime.Text); 
             }
             catch (Exception error)
             {
                 MessageBox.Show("I dati non sono stati inseriti nel modo corretto\n" + error.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtName.Clear();
                 txtTime.Clear();
-                selectorPriority.Items.Clear();
             }
 
             processi[counter] = processo;
@@ -59,7 +57,6 @@ namespace WindowsFormsApp1
 
             txtName.Clear();
             txtTime.Clear();
-            selectorPriority.Items.Clear();
             counter++;
             btnEsegui.Enabled = true;
         }
@@ -89,14 +86,12 @@ namespace WindowsFormsApp1
         {
             txtName.Clear();
             txtTime.Clear();
-            selectorPriority.Items.Clear();
             listBox.Items.Clear();
             btnMetriche.Visible = false;
             for (int i = 0; i < counter; i++)
             {
                 processi[i].name = null;
                 processi[i].time = 0;
-                processi[i].priority = null;
             }
             counter = 0;
         }
